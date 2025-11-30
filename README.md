@@ -13,18 +13,18 @@ Bu proje, temel bir e-ticaret yönetim sistemi için PostgreSQL veritabanı yap�
 ---
 
 ##  🗂 Tablolar ve İlişkiler
-categories: Ürün kategorilerini tutar
-products: Ürün bilgileri, fiyat, stok vb. 
-customers: Müşteri bilgileri
-shipping_addresses: Müşteri teslimat adresleri
-orders: Sipariş bilgileri
-order_items: Sipariş ürün detayları
-reviews: Ürün değerlendirmeleri
-product_price_logs: Ürün fiyat değişiklikleri logları
+- **categories:** Ürün kategorilerini tutar
+- **products:** Ürün bilgileri, fiyat, stok vb. 
+- **customers:** Müşteri bilgileri
+- **shipping_addresses:** Müşteri teslimat adresleri
+- **orders:** Sipariş bilgileri
+- **order_items:** Sipariş ürün detayları
+- **reviews:** Ürün değerlendirmeleri
+- **product_price_logs:** Ürün fiyat değişiklikleri logları
 
 **🔗 1 → Many (1-N) ilişkiler:**
--✔ Bir kategori birçok ürün içerir 
--✔ Bir müşteri birden fazla sipariş verebilir
+-✔ Bir kategori birçok ürün içerir ,
+-✔ Bir müşteri birden fazla sipariş verebilir,
 -✔ Bir müşterinin birden fazla adresi olabilir
 -✔ Sipariş belirli bir adrese bağlıdır
 -✔ Bir ürün birçok sipariş satırında bulunabilir 
@@ -52,7 +52,7 @@ product_price_logs: Ürün fiyat değişiklikleri logları
 
 ---
 
-##⚡  Triggerlar
+## ⚡ Triggerlar
 
 - **Stok Azaltma:** Sipariş oluşturulduğunda ürün stokunu otomatik düşürür.  
 - **Fiyat Değişikliği Loglama:** Ürün fiyatı değiştiğinde eski ve yeni fiyatları loglar.  

@@ -22,25 +22,25 @@ order_items: Sipariş ürün detayları
 reviews: Ürün değerlendirmeleri
 product_price_logs: Ürün fiyat değişiklikleri logları
 
-1 → Many (1-N) ilişkiler: 
-✔ Bir kategori birçok ürün içerir 
-✔ Bir müşteri birden fazla sipariş verebilir
-✔ Bir müşterinin birden fazla adresi olabilir
-✔ Sipariş belirli bir adrese bağlıdır
-✔ Bir ürün birçok sipariş satırında bulunabilir 
-✔ Bir sipariş içinde birden fazla ürün olabilir
-✔ Bir müşteri birçok yorum bırakabilir
-✔ Bir ürün içinde birden fazla yorum bırakabilir 
-✔ Bir ürün için birçok fiyat logu (price_logs) olabilir
+**1 → Many (1-N) ilişkiler:**
+-✔ Bir kategori birçok ürün içerir 
+-✔ Bir müşteri birden fazla sipariş verebilir
+-✔ Bir müşterinin birden fazla adresi olabilir
+-✔ Sipariş belirli bir adrese bağlıdır
+-✔ Bir ürün birçok sipariş satırında bulunabilir 
+-✔ Bir sipariş içinde birden fazla ürün olabilir
+-✔ Bir müşteri birçok yorum bırakabilir
+-✔ Bir ürün içinde birden fazla yorum bırakabilir 
+-✔ Bir ürün için birçok fiyat logu (price_logs) olabilir
 
-Cascade Davranışları: orders.customer_id → ON DELETE CASCADE
-shipping_addresses.customer_id → ON DELETE CASCADE
-order_items.order_id → ON DELETE CASCADE 
+**Cascade Davranışları:** - `orders.customer_id` → ON DELETE CASCADE
+- `shipping_addresses.customer_id` → ON DELETE CASCADE
+- `order_items.order_id` → ON DELETE CASCADE 
 -- Bu sayede müşteri silinirse → gönderi adresi, sipariş ve order_items otomatik silinir.
 
-SET NULL olanlar: products.category_id → kategori silinirse ürün NULL kategoriye düşer
-order_items.product_id → ürün silinirse order_item ürün ID NULL olur 
-orders.shipping_address_id → adres silinirse adres NULL olur
+**SET NULL olanlar:** - `products.category_id` → kategori silinirse ürün NULL kategoriye düşer
+- `order_items.product_id` → ürün silinirse order_item ürün ID NULL olur 
+- `orders.shipping_address_id` → adres silinirse adres NULL olur
 
 ---
 
@@ -77,8 +77,7 @@ orders.shipping_address_id → adres silinirse adres NULL olur
 ## E-Ticaret Sipariş Akışı Süreci Sistem Nasıl İşliyor?
 
 1. **Sipariş Oluşturma Veri Akışı**
-Müşteri ->   Sipariş Ver       -> orders tablosu INSERT -> Trigger çalışır: reduce_stock -> products.stock -= qty -> Sipariş Hazırlanır -> Müşteri ürünü teslim alır -> review ekleyebilir (sp_place_order)
-           sp_place_order()
+Müşteri -> Sipariş Ver (sp_place_order) -> orders tablosu INSERT -> Trigger çalışır: reduce_stock -> products.stock -= qty -> Sipariş Hazırlanır -> Müşteri ürünü teslim alır -> review ekleyebilir
    
 2. **Sipariş İptali Veri Akışı**
 CALL sp_cancel_order(order_id) -> orders.status = 'cancelled' -> Trigger çalışır: restore_stock -> products.stock += quantity
